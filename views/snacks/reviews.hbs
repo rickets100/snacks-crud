@@ -1,0 +1,14 @@
+<!-- THIS IS THE REVIEWS.HBS IN THE SNACKS SUBFOLDER -->
+<div class="container">
+  <h1>Snack Reviews</h1>
+  {{#each reviews}}
+  <div class="row">
+    <div class="col-md-2">
+    </div>
+    <div class="col-md-6">
+      <h2>{{ this.name }}</h2>
+      <p>Review: {{ this.review_description }}</p>
+    </div>
+  </div>
+  {{/each}}
+</div>
