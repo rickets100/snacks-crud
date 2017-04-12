@@ -75,6 +75,4 @@ router.post('/', function(req, res, next) {
 //   })
 // })
 
-// ===== DELETE EXISTING SNACK =====
-
 module.exports = router;
