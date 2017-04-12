@@ -3,6 +3,7 @@ var path = require('path');
 var favicon = require('serve-favicon');
 var logger = require('morgan');
 var bodyParser = require('body-parser');
+var methodOverride = require('method-override')
 
 var index = require('./routes/index');
 var snacks = require('./routes/snacks')
@@ -24,6 +25,7 @@ app.use('/', index);
 // line below means all snacks routes (everything inside the snacks.js file will be prefixed with ""/snacks"
 app.use('/snacks', snacks)
 
+// ======== ERROR HANDLING SECTION =========
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   var err = new Error('Not Found');
@@ -31,7 +33,6 @@ app.use(function(req, res, next) {
   next(err);
 });
 
-// error handler
 app.use(function(err, req, res, next) {
   // set locals, only providing error in development
   res.locals.message = err.message;

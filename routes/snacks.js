@@ -11,6 +11,9 @@ router.get('/', function(req, res, next) {
     // in views/snacks/index.hbs
     res.render('snacks/index', { snacks });
   })
+  .catch(err => {
+    next(err);
+  })
 });
 
 
@@ -21,10 +24,12 @@ router.get('/snacks', function(req, res, next) {
     console.log(reviews);
     res.render('snacks/reviews', { reviews });
   })
+  .catch(err => {
+    next(err);
+  })
 })
 
 // ========= GET FORMS PAGE ========
-// THIS NEEDS TO ADD SINGLE SNACK
 router.get('/new', (req, res, next) => {
   res.render('snacks/new')
 })
@@ -40,7 +45,7 @@ router.get('/:id', function (req, res, next) {
     res.render('snacks/show', { snack })
   })
   .catch(err => {
-    res.send(err);
+    next(err);
   })
 })
 
@@ -52,18 +57,18 @@ router.post('/', function(req, res, next) {
     review_description: req.body['review-description'],
     rating: req.body.rating
   }
-  db('snacks').insert(snack, '*').then((newSnack) => {
+  db('snacks').insert(snack, '*')
+  .then((newSnack) => {
   newId = (newSnack[0].id);
   newPath=(`snacks/${newId}`)
   console.log(newPath);
   // redirect takes the actual path as though we were typing it into a browser
   // can't do ".first" because that returns the first movie in the query results, which in this case is the entire table
   res.redirect(newPath)
-})
-.catch(err => {
-  res.send(err);
-})
-
+  })
+  .catch(err => {
+    next(err);
+  })
 })
 
 // ===== DELETE AN EXISTING SNACK =====
@@ -78,7 +83,7 @@ function deleteOneSnack() {
         res.redirect('/snacks')
       })
       .catch(err => {
-        res.send(err);
+        next(err);
       })
   }
 }
