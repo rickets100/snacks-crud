@@ -21,7 +21,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', index);
-// line below means all snacks routes (everything inside the snacks.js file) will be prefixed with ""/snacks"
+// line below means all snacks routes (everything inside the snacks.js file will be prefixed with ""/snacks"
 app.use('/snacks', snacks)
 
 // catch 404 and forward to error handler

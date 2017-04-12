@@ -24,7 +24,7 @@ router.get('/snacks', function(req, res, next) {
 })
 
 // ========= GET FORMS PAGE ========
-// THIS NEEDS TO A SINGLE SNACK
+// THIS NEEDS TO ADD SINGLE SNACK
 router.get('/new', (req, res, next) => {
   res.render('snacks/new')
 })
@@ -60,6 +60,10 @@ router.post('/', function(req, res, next) {
   // can't do ".first" because that returns the first movie in the query results, which in this case is the entire table
   res.redirect(newPath)
 })
+.catch(err => {
+  res.send(err);
+})
+
 })
 
 // ===== DELETE AN EXISTING SNACK =====
@@ -73,9 +77,9 @@ function deleteOneSnack() {
       .then((result) => {
         res.redirect('/snacks')
       })
-      .catch((err) => {
-        console.error(err);
-      });
+      .catch(err => {
+        res.send(err);
+      })
   }
 }
 
