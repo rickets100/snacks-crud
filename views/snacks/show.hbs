@@ -1,0 +1,15 @@
+<div class="container">
+  <h1>{{ snack.name }}</h1>
+  <a href="/snacks">Back to Main Snack Page</a>
+  <hr>
+  <div class="row">
+    <div class="col-md-2">
+      <img src="{{ snack.image_url }}"
+        alt="{{ snack.name }}"
+        class="image">
+    </div>
+    <div class="col-md-6">
+      <p>Review: {{ snack.review_description }}</p>
+    </div>
+  </div>
+</div>

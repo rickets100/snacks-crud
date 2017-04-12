@@ -6,11 +6,10 @@
     <div class="col-md-2">
     <a href="/snacks/{{ this.id }}"><img src="{{ this.image_url }}"
         alt="{{ this.name }}"
-        class="poster"></a>
+        class="image"></a>
     </div>
     <div class="col-md-6">
-      <h2>{{ this.name }}</h2>
-      <p>{{ this.image_url }}</p>
+      <a href="/snacks/{{ this.id }}"><h2>{{ this.name }}</h2></a>
       <p>Review: {{ this.review_description }}</p>
       <p>Rating: {{ this.rating }}</p>
     </div>
