@@ -62,6 +62,23 @@ router.post('/', function(req, res, next) {
 })
 })
 
+// ===== DELETE AN EXISTING SNACK =====
+router.delete('/snacks/:id', deleteOneSnack)
+function deleteOneSnack() {
+  return function(req, res, next) {
+    let toBeDeleted = req.params.id;
+    db('movies')
+      .del()
+      .where('id', toBeDeleted)
+      .then((result) => {
+        res.redirect('/snacks')
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  }
+}
+
 // ====== UPDATE ONE SNACK REVIEW ======
 // router.patch('/snacks/:id', function(req, res, next) {
 //   db('snacks')
