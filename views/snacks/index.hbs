@@ -12,7 +12,8 @@
       <a href="/snacks/{{ this.id }}"><h2>{{ this.name }}</h2></a>
       <p>Review: {{ this.review_description }}</p>
       <p>Rating: {{ this.rating }}</p>
-      <button id="edit-button" type="button" class="btn btn-primary" method="DELETE" action="/snacks">Edit</button>
+      <a href="/snacks/{{ this.id }}/edit" type="button" name="button" class="btn btn-success"
+      id="edit-button">Edit</a>
     </div>
   </div>
   {{/each}}

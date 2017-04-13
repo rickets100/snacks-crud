@@ -4,6 +4,8 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var bodyParser = require('body-parser');
 var methodOverride = require('method-override')
+var hbs = require('hbs');
+hbs.registerPartials(__dirname + '/views/partials')
 
 var index = require('./routes/index');
 var snacks = require('./routes/snacks')

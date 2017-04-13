@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var db = require('../db/connection');
+var hbs = require('hbs');
 
 // ======= GET HOME PAGE =========
 /* note: every router path here is actually prefixed with /snacks. This is done with the line in app.js that says app.use('/snacks', snacks) */
@@ -34,7 +35,6 @@ router.get('/new', (req, res, next) => {
   res.render('snacks/new')
 })
 
-
 // ===== GET A SINGLE SNACK WITH ITS REVIEW =====
 router.get('/:id', function (req, res, next) {
   selectedId = req.params.id;
@@ -43,6 +43,20 @@ router.get('/:id', function (req, res, next) {
   .first()
   .then(snack => {
     res.render('snacks/show', { snack })
+  })
+  .catch(err => {
+    next(err);
+  })
+})
+
+// ===== EDIT A SINGLE SNACK WITH ITS REVIEW =====
+router.get('/:id/edit', function (req, res, next) {
+  selectedId = req.params.id;
+  db('snacks').select('*')
+  .where('id', selectedId)
+  .first()
+  .then(snack => {
+    res.render('snacks/edit', { snack })
   })
   .catch(err => {
     next(err);
@@ -89,16 +103,21 @@ function deleteOneSnack() {
 }
 
 // ====== UPDATE ONE SNACK REVIEW ======
-// router.patch('/snacks/:id', function(req, res, next) {
-//   db('snacks')
-//   .where('id', selectedId)
-//   .first()
-//   .update({
-//     review_description: 'I no longer find this tasty.',
-//   })
-//   .then(review_description => {
-//     res.render('snacks/reviews', { reviews })
-//   })
-// })
+router.put('/:id', function(req, res, next) {
+  var selectedId = req.params.id
+  var snack = {
+    name: req.body.name,
+    image_url: req.body['image-url'],
+    review_description: req.body['review-description'],
+    rating: req.body.rating
+  }
+  db('snacks')
+  .update(snacks, '*')
+  .where({ id })
+  .then(updatedSnack => {
+    var id = updatedSnack[0].id
+    res.redirect(`/snacks${id}`)
+  })
+})
 
 module.exports = router;

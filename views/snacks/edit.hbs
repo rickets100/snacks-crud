@@ -1,0 +1,45 @@
+<div class="container">
+  <h1>Edit {{ snack.name }}</h1>
+  <a href="/snacks">Go back to the main snacks page</a>
+  <hr>
+  <form method="POST" action="/snacks/{{ snack.id }}?_method=PUT" class="well">
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="name">Snack Name</label>
+          <input type="text" class="form-control" id="name" value= "{{ snack.name}}" name="name">
+        </div>
+
+      <!-- IMAGE -->
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="image-url">Image URL</label>
+          <input type="text" class="form-control" id="image-url" value= "{{ snack.image_url }}" name="image-url">
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+      </div>
+      <!-- REVIEW -->
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="review-description">Review</label>
+          <input type="text" class="form-control" id="review-description" value= "{{ snack.review_description}}" name="review-description">
+        </div>
+      </div>
+    </div>
+
+    <!-- RATING -->
+    <div class="row">
+      <div class="col-md-12">
+        <div class="form-group">
+          <label for="rating">Rating</label>
+          <input type="number" min="0" max="10" class="form-control" id="rating" value= {{ snack.rating}} name="rating">
+        </div>
+      </div>
+    </div>
+    <button type="submit" class="btn btn-default">Submit</button>
+  </form>
+</div>
