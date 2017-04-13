@@ -1,6 +1,6 @@
 var express = require('express')
 var router = express.Router()
-var db = require('../db/connection')
+var db = require('../database/connection')
 var hbs = require('hbs')
 
 // ======= GET HOME PAGE (AKA GET ALL)=========
