@@ -1,9 +1,9 @@
-var express = require('express');
-var router = express.Router();
-var db = require('../db/connection');
-var hbs = require('hbs');
+var express = require('express')
+var router = express.Router()
+var db = require('../db/connection')
+var hbs = require('hbs')
 
-// ======= GET HOME PAGE =========
+// ======= GET HOME PAGE (AKA GET ALL)=========
 /* note: every router path here is actually prefixed with /snacks. This is done with the line in app.js that says app.use('/snacks', snacks) */
 router.get('/', function(req, res, next) {
   db('snacks').select('*').orderBy('name')
@@ -18,7 +18,7 @@ router.get('/', function(req, res, next) {
 });
 
 
-// ===== GET ALL SNACK REVIEWS =====
+// ===== GET ALL SNACKS =====
 router.get('/snacks', function(req, res, next) {
   db('snacks').select('review_description')
   .then(reviews => {
@@ -63,8 +63,9 @@ router.get('/:id/edit', function (req, res, next) {
   })
 })
 
-// ===== CREATE NEW SNACKS WITH REVIEWS ======
+// ===== CREATE A NEW SNACK ======
 router.post('/', function(req, res, next) {
+  var rating =  parseInt(req.body.year)
   var snack = {
     name: req.body.name,
     image_url: req.body['image-url'],
@@ -73,9 +74,8 @@ router.post('/', function(req, res, next) {
   }
   db('snacks').insert(snack, '*')
   .then((newSnack) => {
-  newId = (newSnack[0].id);
+  var newId = (newSnack[0].id)
   newPath=(`snacks/${newId}`)
-  console.log(newPath);
   // redirect takes the actual path as though we were typing it into a browser
   // can't do ".first" because that returns the first movie in the query results, which in this case is the entire table
   res.redirect(newPath)
@@ -104,7 +104,7 @@ function deleteOneSnack() {
 
 // ====== UPDATE ONE SNACK REVIEW ======
 router.put('/:id', function(req, res, next) {
-  var selectedId = req.params.id
+  var id = req.params.id
   var snack = {
     name: req.body.name,
     image_url: req.body['image-url'],
@@ -112,11 +112,14 @@ router.put('/:id', function(req, res, next) {
     rating: req.body.rating
   }
   db('snacks')
-  .update(snacks, '*')
+  .update(snack, '*')
   .where({ id })
   .then(updatedSnack => {
     var id = updatedSnack[0].id
-    res.redirect(`/snacks${id}`)
+    res.redirect(`/snacks/${id}`)
+  })
+  .catch(err => {
+    next(err);
   })
 })
 
