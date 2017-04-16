@@ -90,7 +90,7 @@ router.delete('/snacks/:id', deleteOneSnack)
 function deleteOneSnack() {
   return function(req, res, next) {
     let toBeDeleted = req.params.id;
-    db('movies')
+    db('snacks')
       .del()
       .where('id', toBeDeleted)
       .then((result) => {
